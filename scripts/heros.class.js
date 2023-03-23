@@ -13,11 +13,11 @@ export class Heros {
     static damage     =   3;
     static minDef     =   1;
     static maxDef     =   5;
+    static maxArmes   =   4;
     static minForce   =   3;
     static maxForce   =  10;
     static maxPotions =  10;
-    static maxArmes   =   4;
-    static maxVie     = 100;
+    static maxHealth  = 100;
     
     // Constructeur
     constructor(prenom, nom, degats, health, nombrePotions, nombreArmes){
@@ -45,6 +45,7 @@ export class Heros {
 
     // Méthode qui peut être appelée pour attaquer une cible
     // Baisse les HPs de la cible en faisant : HPS + DEF - DEGATS;
+    // Renvoie true ou false si sa cible est morte
     Attaque(cible){
         if (cible.GetHealth > 0){
             let HPS = cible.GetHealth;
@@ -84,7 +85,7 @@ export class Heros {
     }
 
     // Méthode qui peut être appelée pour utiliser une potion existante dans le sac
-    // Régénère 10 HPs au Heros sans excéder la limite Heros.maxVie
+    // Régénère 10 HPs au Heros sans excéder la limite Heros.maxHealth
     UtiliserPotion(){
         // Verifier si on a des potions dans le sac
         if (this.#potions.length == 0){
@@ -145,9 +146,9 @@ export class Heros {
         if (tmp <= 0){
             this.#health = 0;
             console.log("Le Heros est décédé!");
-        } else if (tmp > Heros.maxVie){
-            this.#health = Heros.maxVie;
-            console.log("Les points de vie ne peuvent exceder: " + Heros.maxVie + " le Heros a maintenant: " + Heros.maxVie + " points de vie");
+        } else if (tmp > Heros.maxHealth){
+            this.#health = Heros.maxHealth;
+            console.log("Les points de vie ne peuvent exceder: " + Heros.maxHealth + " le Heros a maintenant: " + Heros.maxHealth + " points de vie");
         } else {
             this.#health = tmp;
         }
