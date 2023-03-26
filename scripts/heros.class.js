@@ -93,7 +93,7 @@ export class Heros {
         // Retirer la dernière potion ajoutée
         } else { 
             this.#potions.splice((this.#potions.length - 1), 1);
-            this.#health = this.#health + 10;
+            this.SetHealth = this.#health + 10;
         }
     }
 

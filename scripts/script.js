@@ -7,6 +7,8 @@ console.log(monHeros);
 monHeros.AjouterEquipement("arme");
 monHeros.AjouterEquipement("arme");
 
+monHeros.UtiliserPotion();
+
 let randomCreature = new Creature("Zombie", 1, 4, 100, ["path1", "path2"], monHeros);
 console.log(randomCreature);
 
