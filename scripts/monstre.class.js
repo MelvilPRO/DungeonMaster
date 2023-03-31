@@ -4,7 +4,7 @@ export class Monstre {
     #degats;    // INT
     #defense;   // INT
     #health;    // INT
-    #images;    // [STR_PATH]
+    #images;    // STR_PATH
     #target;    // CLASS INSTANCE MONSTRE/HEROS
 
     // Variables statiques utiles
