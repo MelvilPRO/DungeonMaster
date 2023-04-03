@@ -4,12 +4,8 @@ import { Araignee } from './araignee.class.js';
 import { Squelette } from './squelette.class.js';
 import { Boss } from './boss.class.js';
 
-let monHeros = new Heros("Jean", "Kevin", 11, 100, 8, 3);
-console.log(monHeros);
-monHeros.AjouterEquipement("arme");
-monHeros.AjouterEquipement("arme");
-
-monHeros.UtiliserPotion();
+let monHeros = new Heros("Jean", "Kevin");
+console.log(monHeros)
 
 let araignee = new Araignee("Fragileeeuu", 2, 5, 40, monHeros);
 console.log(araignee);

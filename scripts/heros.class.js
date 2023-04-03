@@ -16,31 +16,24 @@ export class Heros {
     static maxArmes   =   4;
     static minForce   =   3;
     static maxForce   =  10;
-    static maxPotions =  10;
+    static maxPotions =   5;
     static maxHealth  = 100;
     
     // Constructeur
-    constructor(prenom, nom, degats, health, nombrePotions, nombreArmes){
-        this.Init(prenom, nom, degats, health, nombrePotions, nombreArmes);
+    constructor(prenom, nom){
+        this.Init(prenom, nom);
     };
 
     // Méthode Init appelée par le constructeur
-    Init(prenom, nom, degats, health, nombrePotions, nombreArmes){
+    Init(prenom, nom){
         this.SetNom = nom;
         this.SetPrenom = prenom;
-        this.SetDegats = degats * Heros.damage;
         this.SetForce = Math.floor(Math.random() * (Heros.maxForce - Heros.minForce) + Heros.minForce);
+        this.SetDegats = this.GetForce * Heros.damage;
         this.SetDefense = Math.floor(Math.random() * (Heros.maxDef - Heros.minDef) + Heros.minDef);
-        this.SetHealth = health;
-
+        this.SetHealth = Heros.maxHealth;
         this.SetPotions = [];
         this.SetArmes   = [];
-        for (let i = 0; i < nombrePotions; i++){
-            this.AjouterEquipement("potion");
-        }
-        for (let i = 0; i < nombreArmes; i++){
-            this.AjouterEquipement("arme");
-        }
     }
 
     // Méthode qui peut être appelée pour attaquer une cible
@@ -65,21 +58,23 @@ export class Heros {
     // Méthode qui peut être appelée pour ajouer une arme ou une nouvelle potion
     // Sans excéder la limite d'objet dans le sac du Heros
     AjouterEquipement(nomEquipement){
-        // Dans le cas d'une arme
-        if (nomEquipement == "arme"){
-            // Rajoute une un objet contenant une clé "arme" avec valeur "arme"
-            if (this.#armes.length < Heros.maxArmes){
-                this.#armes.push({"arme": nomEquipement});
-            } else {
-                console.log("Impossible d'ajouter une arme, votre sac d'équipements est plein");
-            }
-        // Dans le cas d'une potion
-        } else if (nomEquipement == "potion"){
-            // Rajoute une un objet contenant une clé "potion" avec valeur "potion"
+        if (nomEquipement == "potion"){
+            // Rajoute une chaine de caractère "potion" dans le sac à potions
             if (this.#potions.length < Heros.maxPotions){
-                this.#potions.push({"potion": nomEquipement});
+                this.#potions.push("potion");
+                console.log("Vous avez récupéré une potion");
             } else {
                 console.log("Impossible d'ajouter une potion, votre sac de potions est plein");
+            }
+        // Rajoute une chaine de caractère (nomEquipement) dans le sac à equipements
+        } else {
+            if (this.#armes.length < Heros.maxArmes){
+                
+                this.#armes.push(nomEquipement);
+                this.SetDegats = this.GetDegats + 4;
+                console.log("Vous avez récupéré une arme: " + nomEquipement + " vos dégats sont de: " + this.GetDegats);
+            } else {
+                console.log("Impossible d'ajouter une arme, votre sac d'équipements est plein");
             }
         }
     }
