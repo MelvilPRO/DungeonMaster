@@ -6,8 +6,9 @@ export class Boss extends Monstre {
     static variousColors = 5;
 
     constructor(nom, degats, defense, health, target){
-        super(nom, degats, defense, health, "", target);
         let variousColor = Math.floor(Math.random() * (Boss.variousColors - 0) + 0);
-        super.SetImages = Boss.linkToImage + "boss" + variousColor + ".png"
+        let currentImage = Boss.linkToImage + "spider" + variousColor + ".png";
+
+        super(nom, degats, defense, health, currentImage, target);
     }
 }
