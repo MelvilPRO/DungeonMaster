@@ -1,7 +1,9 @@
 import { Monstre } from "./monstre.class.js";
 
 export class Araignee extends Monstre {
-    static maxDropRange = 5;
+    #loot;
+
+    static lootRange = 5;
     static linkToImage  = "../images/"; 
     static variousColors = 3;
 
@@ -10,5 +12,18 @@ export class Araignee extends Monstre {
         let currentImage = Araignee.linkToImage + "spider" + variousColor + ".png";
 
         super(nom, degats, defense, health, currentImage, target);
+        this.SetLootStats();
+    }
+
+    SetLootStats(){
+        this.SetLoot = Math.floor(Math.random() * (Araignee.lootRange) + 1) == 1;
+    }
+
+    get GetLoot(){
+        return this.#loot;
+    }
+
+    set SetLoot(loot){
+        this.#loot = loot;
     }
 }
