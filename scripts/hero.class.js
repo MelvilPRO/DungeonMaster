@@ -6,6 +6,7 @@ export class Hero {
     static maxDef = 5;
     static maxLife = 100;
     static maxPotions = 10;
+    static maxWeapons = 4;
 
     #nom;
     #prenom;
@@ -119,6 +120,8 @@ export class Hero {
     }
 
     set bagWeapons(tmp){
-        this.#bagWeapons = tmp;
+        if (tmp <= Hero.maxWeapons && tmp >= 0) {
+            this.#bagWeapons = tmp;
+        }
     }
 }
