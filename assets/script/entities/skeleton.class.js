@@ -1,28 +1,47 @@
 import { Monster } from "./monster.class.js";
 
 export class Skeleton extends Monster {
-    #loot;
+    static linkToImg = 'assets/img/';
+    static variousColor = ['skeleton.green.png', 'skeleton.red.png', 'skeleton.white.png'];
 
-    static lootRange = 10;
-    static linkToImage = "../images/skeleton/";
-    static textureName = "skeleton";
-    static variousColors = 2;
+    // Max taux de drop des potions / des armes
+    static luckWeapon = 5;
+    static luckPotion = 3;
 
-    constructor(nom, degats, defense, life, target){
-        let variousColor = Math.floor(Math.random() * (Skeleton.variousColors - 0) + 0);
-        let currentImage = Skeleton.linkToImage + Skeleton.textureName + variousColor + ".png";
+    _dom;
 
-        super(nom, degats, defense, life, currentImage, target);
-
-        let lootStatistics = Math.floor(Math.random() * (Skeleton.lootRange) + 1) == 1;
-        this.loot = lootStatistics;
+    constructor(atk, def, life, tgt) {
+        let random = Math.floor(Math.random() * 3);
+        let sprite = Skeleton.linkToImg + Skeleton.variousColor[random];
+        super('Skeleton', atk, def, life, sprite, tgt);
+        this.addToDom()
     }
 
-    get loot(){
-        return this.#loot;
+    addToDom() {
+        this._dom = document.createElement('img');
+        this._dom.classList.add('skeleton');
+        this._dom.src = this.image;
+        this.target.appendChild(this._dom);
     }
 
-    set loot(tmp){
-        this.#loot = tmp;
+    removeFromDom() {
+        this.target.removeChild(this._dom)
+    }
+
+    leaveReward() {
+        let randomPotion = Math.floor(Math.random() * (Skeleton.luckPotion + 1));
+        let randomWeapon = Math.floor(Math.random() * (Skeleton.luckWeapon + 1));
+
+        let gift = null;
+
+        if (randomPotion == 1) {
+            gift = 'potions'
+        }
+
+        if (randomWeapon == 1 && gift == null) {
+            gift = 'weapon';
+        }
+
+        return gift;
     }
 }
