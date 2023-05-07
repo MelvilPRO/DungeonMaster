@@ -7,6 +7,7 @@ export class Skeleton extends Monster {
     // Max taux de drop des potions / des armes
     static luckWeapon = 5;
     static luckPotion = 3;
+    static MonsterType = 1;
 
     _dom;
 

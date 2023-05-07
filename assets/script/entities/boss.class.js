@@ -7,6 +7,7 @@ export class Boss extends Monster {
     // Max taux de drop des potions / des armes
     static luckWeapon = 2;
     static luckPotion = 2;
+    static MonsterType = 2;
 
     _dom;
 

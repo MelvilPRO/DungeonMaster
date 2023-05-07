@@ -8,6 +8,7 @@ export class Spider extends Monster {
     // Max taux de drop des potions / des armes
     static luckWeapon = 1;
     static luckPotion = 5;
+    static MonsterType = 0;
 
     _dom;
 
