@@ -5,14 +5,18 @@ export class GameInterface {
 
     #loseDom;
 
+    #hero;
     #gameMonsters;
 
-    constructor(stepNum, gameMonsters){
+    constructor(stepNum, hero, gameMonsters){
         this.stepNum = stepNum;
         this.stepDom = document.querySelector("#step");
         this.#stepDom.innerHTML = "Etage: " + this.stepNum;
-        this.#loseDom = document.querySelector("#lose");
+        this.loseDom = document.querySelector("#lose");
+        this.hero = hero;
         this.gameMonsters = gameMonsters;
+        this.showButtons();
+        this.showEquipements();
     }
 
     // Méthode utilisée lors d'un passage de niveau
@@ -29,6 +33,36 @@ export class GameInterface {
     showYouLose() {
         this.loseDom.style.display = "block";
         this.loseDom.style.textAlign = "center";
+    }
+
+    // Méthode utilisée pour afficher les différents boutons disponibles
+    showButtons(attaquer = true, utiliser = false, suivant = false) {
+        if (attaquer) {
+            let btnAttack = document.querySelector("#btnAttack");
+            btnAttack.style.display = "block";
+        }
+
+        if (utiliser) {
+            let btnUtiliser = document.querySelector("#btnUtiliser");
+            btnUtiliser.style.display = "block";
+        }
+
+        if (suivant) {
+            let btnNext = document.querySelector("#btnNext");
+            btnNext.style.display = "block";
+        }
+    }
+
+    // Méthode utilisée pour afficher les différents équipements
+    showEquipements() {
+        let bagDom = document.querySelector("#bag");
+        bagDom.style.display = "block";
+
+        let equipementDom = document.querySelector("#equipement");
+        equipementDom.style.display = "block";
+
+        let potionsDom = document.querySelector("#potions");
+        potionsDom.style.display = "block";
     }
 
     get stepDom() {
@@ -53,6 +87,14 @@ export class GameInterface {
 
     set loseDom(tmp) {
         this.#loseDom = tmp;
+    }
+
+    get hero() {
+        return this.#hero;
+    }
+
+    set hero(tmp) {
+        this.#hero = tmp;
     }
 
     get gameMonsters() {

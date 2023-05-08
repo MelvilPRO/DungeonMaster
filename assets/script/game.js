@@ -14,7 +14,7 @@ export class Game {
     constructor(){
         this.backgroundDom = document.querySelector("#background");
         this.alita = new Hero("Alita", "Zelielh");
-        this.gameInterface = new GameInterface(0, this.getRandomMonsters());
+        this.gameInterface = new GameInterface(0, this.alita, this.getRandomMonsters());
     }
 
     getRandomMonsters () {
