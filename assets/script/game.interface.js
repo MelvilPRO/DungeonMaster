@@ -8,6 +8,9 @@ export class GameInterface {
     static MaxStepNum = 10;
 
     #loseDom;
+    #btnAttack;
+    #btnUtiliser;
+    #btnNext;
 
     #hero;
     #gameMonsters;
@@ -17,6 +20,10 @@ export class GameInterface {
         this.stepDom = document.querySelector("#step");
         this.#stepDom.innerHTML = "Etage: " + this.stepNum;
         this.loseDom = document.querySelector("#lose");
+        this.btnAttack = document.querySelector("#btnAttack");
+        this.#btnUtiliser = document.querySelector("#btnUtiliser");
+        this.#btnNext = document.querySelector("#btnNext");
+        this.setButtonsActions();
         this.hero = hero;
         this.gameMonsters = gameMonsters;
         this.gameMonsters[this.stepNum].addToDom();
@@ -24,8 +31,44 @@ export class GameInterface {
         this.showEquipements();
     }
 
-    switchMonsterDom() {
-        this.gameMonsters[this.stepNum - 1].removeFromDom();
+    setButtonsActions(){
+        this.btnAttack.addEventListener("click", (e) => {
+            this.attackButtonAction();
+        });
+
+        this.btnUtiliser.addEventListener("click", (e) => {
+            this.potionActionButton();
+        });
+
+        this.btnNext.addEventListener("click", (e) => {
+            this.nextButtonAction();
+        });
+    }
+
+    // Action du bouton Attaquer
+    attackButtonAction(){
+        // Si le monstre actuel est mort
+        if (this.hero.attack(this.gameMonsters[this.stepNum])) {
+            this.gameMonsters[this.stepNum].removeFromDom();
+            // Nous affichons le bouton pour aller au niveau suivant
+            this.showNextButton(true);
+        }
+    }
+
+    // Action du bouton Utiliser
+    potionActionButton(){
+        this.hero.usePotions();
+    }
+
+    // Action du bouton Suivant
+    nextButtonAction(){
+        this.nextStep();
+        // Nous cachons le bouton
+        // Il y a un nouveau monstre..
+        this.showNextButton(false);
+    }
+
+    addNextMonsterDom() {
         this.gameMonsters[this.stepNum].addToDom();
     }
 
@@ -38,7 +81,7 @@ export class GameInterface {
     nextStep() {
         if (this.stepNum < GameInterface.MaxStepNum){
             this.stepNum += 1;
-            this.switchMonsterDom();
+            this.addNextMonsterDom();
             this.switchBackgroundImg(this.stepNum);
             this.#stepDom.innerHTML = "Etage: " + this.stepNum;
         } else {
@@ -54,23 +97,29 @@ export class GameInterface {
 
     // Méthode utilisée pour afficher ou cacher les différents boutons disponibles
     showButtons(attaquer = true, utiliser = false, suivant = false) {
-        let btnAttack = document.querySelector("#btnAttack");
-        let btnUtiliser = document.querySelector("#btnUtiliser");
-        let btnNext = document.querySelector("#btnNext");
+        this.showAttackButton(attaquer);
+        this.showPotionButton(utiliser);
+        this.showNextButton(suivant);
+    }
 
-        if (attaquer) {
+    showAttackButton(tmpBool){
+        if (tmpBool) {
             btnAttack.style.display = "block";
         } else {
             btnAttack.style.display = "none";
         }
+    }
 
-        if (utiliser) {
+    showPotionButton(tmpBool){
+        if (tmpBool) {
             btnUtiliser.style.display = "block";
         } else {
             btnUtiliser.style.display = "none";
         }
+    }
 
-        if (suivant) {
+    showNextButton(tmpBool){
+        if (tmpBool) {
             btnNext.style.display = "block";
         } else {
             btnNext.style.display = "none";
@@ -111,6 +160,30 @@ export class GameInterface {
 
     set loseDom(tmp) {
         this.#loseDom = tmp;
+    }
+
+    get btnAttack() {
+        return this.#btnAttack;
+    }
+
+    set btnAttack(tmp) {
+        this.#btnAttack = tmp;
+    }
+
+    get btnUtiliser() {
+        return this.#btnUtiliser;
+    }
+
+    set btnUtiliser(tmp) {
+        this.#btnUtiliser = tmp;
+    }
+
+    get btnNext() {
+        return this.#btnNext;
+    }
+
+    set btnNext(tmp) {
+        this.#btnNext = tmp;
     }
 
     get hero() {
