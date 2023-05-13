@@ -29,7 +29,7 @@ body {
   width: 700px;
   margin: 10px auto;
   height: 400px;
-  background-image: url(../img/background.jfif);
+  background-image: url(../img/backgrounds/background0.png);
   background-size: cover;
   position: relative;
 }
