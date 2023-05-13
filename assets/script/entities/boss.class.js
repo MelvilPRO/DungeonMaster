@@ -15,7 +15,6 @@ export class Boss extends Monster {
         let random = Math.floor(Math.random() * 3);
         let sprite = Boss.linkToImg + Boss.variousColor[random];
         super('Boss', atk, def, life, sprite, tgt);
-        this.addToDom(random)
     }
 
     addToDom(numberBoss) {

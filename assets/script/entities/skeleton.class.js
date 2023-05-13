@@ -15,7 +15,6 @@ export class Skeleton extends Monster {
         let random = Math.floor(Math.random() * 3);
         let sprite = Skeleton.linkToImg + Skeleton.variousColor[random];
         super('Skeleton', atk, def, life, sprite, tgt);
-        this.addToDom()
     }
 
     addToDom() {

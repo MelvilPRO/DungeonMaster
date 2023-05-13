@@ -16,7 +16,6 @@ export class Spider extends Monster {
         let random = Math.floor(Math.random() * 3);
         let sprite = Spider.linkToImg + Spider.variousColor[random];
         super('Spider', atk, def, life, sprite, tgt);
-        this.addToDom();
     }
 
     addToDom() {

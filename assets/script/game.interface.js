@@ -19,19 +19,26 @@ export class GameInterface {
         this.loseDom = document.querySelector("#lose");
         this.hero = hero;
         this.gameMonsters = gameMonsters;
+        this.gameMonsters[this.stepNum].addToDom();
         this.showButtons();
         this.showEquipements();
     }
 
-    switchBackgroundImg(backgroundNum) {
+    switchMonsterDom() {
+        this.gameMonsters[this.stepNum - 1].removeFromDom();
+        this.gameMonsters[this.stepNum].addToDom();
+    }
+
+    switchBackgroundImg() {
         let backgroundDom = document.querySelector("#background");
-        backgroundDom.style.backgroundImage = "url(" + GameInterface.BackgroundPaths + "background" + backgroundNum + ".png)";
+        backgroundDom.style.backgroundImage = "url(" + GameInterface.BackgroundPaths + "background" + this.stepNum + ".png)";
     }
 
     // Méthode utilisée lors d'un passage de niveau
     nextStep() {
         if (this.stepNum < GameInterface.MaxStepNum){
             this.stepNum += 1;
+            this.switchMonsterDom();
             this.switchBackgroundImg(this.stepNum);
             this.#stepDom.innerHTML = "Etage: " + this.stepNum;
         } else {
