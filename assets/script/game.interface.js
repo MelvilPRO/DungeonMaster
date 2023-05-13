@@ -45,21 +45,28 @@ export class GameInterface {
         this.loseDom.style.textAlign = "center";
     }
 
-    // Méthode utilisée pour afficher les différents boutons disponibles
+    // Méthode utilisée pour afficher ou cacher les différents boutons disponibles
     showButtons(attaquer = true, utiliser = false, suivant = false) {
+        let btnAttack = document.querySelector("#btnAttack");
+        let btnUtiliser = document.querySelector("#btnUtiliser");
+        let btnNext = document.querySelector("#btnNext");
+
         if (attaquer) {
-            let btnAttack = document.querySelector("#btnAttack");
             btnAttack.style.display = "block";
+        } else {
+            btnAttack.style.display = "none";
         }
 
         if (utiliser) {
-            let btnUtiliser = document.querySelector("#btnUtiliser");
             btnUtiliser.style.display = "block";
+        } else {
+            btnUtiliser.style.display = "none";
         }
 
         if (suivant) {
-            let btnNext = document.querySelector("#btnNext");
             btnNext.style.display = "block";
+        } else {
+            btnNext.style.display = "none";
         }
     }
 
