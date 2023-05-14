@@ -5,7 +5,7 @@ export class GameInterface {
     #stepNum;
 
     static BackgroundPaths = "assets/img/backgrounds/";
-    static linkToImgEquipements = 'assets/img/';
+    static EquipementsPath = 'assets/img/';
     static MaxStepNum = 10;
 
     #loseDom;
@@ -13,6 +13,7 @@ export class GameInterface {
     #btnUtiliser;
     #btnNext;
 
+    #bagDom;
     #equipementDom;
     #potionsDom;
 
@@ -27,6 +28,7 @@ export class GameInterface {
         this.btnAttack = document.querySelector("#btnAttack");
         this.btnUtiliser = document.querySelector("#btnUtiliser");
         this.btnNext = document.querySelector("#btnNext");
+        this.bagDom = document.querySelector("#bag");
         this.potionsDom = document.querySelector("#potions");
         this.equipementDom = document.querySelector("#equipement");
         this.setButtonsActions();
@@ -55,12 +57,10 @@ export class GameInterface {
         let givenReward = this.gameMonsters[this.stepNum].leaveReward();
         if (givenReward != null) {
             let newImageDom = document.createElement('img');
-            newImageDom.classList.add(givenReward);
-            newImageDom.src = GameInterface.linkToImgEquipements + givenReward + ".png";
+            newImageDom.src = GameInterface.EquipementsPath + givenReward + ".png";
 
             switch(givenReward){
                 case 'potions':
-                    
                     this.potionsDom.appendChild(newImageDom);
                     break;
                 case 'weapon':
@@ -166,14 +166,7 @@ export class GameInterface {
 
     // Méthode utilisée pour afficher les différents équipements
     showEquipements() {
-        let bagDom = document.querySelector("#bag");
-        bagDom.style.display = "block";
-
-        let equipementDom = document.querySelector("#equipement");
-        equipementDom.style.display = "block";
-
-        let potionsDom = document.querySelector("#potions");
-        potionsDom.style.display = "block";
+        this.bagDom.style.display = "block";
     }
 
     get stepDom() {
@@ -222,6 +215,14 @@ export class GameInterface {
 
     set btnNext(tmp) {
         this.#btnNext = tmp;
+    }
+
+    get bagDom() {
+        return this.#bagDom;
+    }
+
+    set bagDom(tmp) {
+        this.#bagDom = tmp;
     }
 
     get equipementDom() {
