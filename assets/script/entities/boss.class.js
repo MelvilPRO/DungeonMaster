@@ -51,11 +51,9 @@ export class Boss extends Monster {
             gift = 'potions'
         }
 
-        if (randomWeapon == 1) {
+        if (randomWeapon == 1 && gift == null) {
             gift = 'weapon';
         }
-
-        // console.log(gift)
 
         return gift;
     }

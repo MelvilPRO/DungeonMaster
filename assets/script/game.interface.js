@@ -5,12 +5,16 @@ export class GameInterface {
     #stepNum;
 
     static BackgroundPaths = "assets/img/backgrounds/";
+    static linkToImgEquipements = 'assets/img/';
     static MaxStepNum = 10;
 
     #loseDom;
     #btnAttack;
     #btnUtiliser;
     #btnNext;
+
+    #equipementDom;
+    #potionsDom;
 
     #hero;
     #gameMonsters;
@@ -23,6 +27,8 @@ export class GameInterface {
         this.btnAttack = document.querySelector("#btnAttack");
         this.#btnUtiliser = document.querySelector("#btnUtiliser");
         this.#btnNext = document.querySelector("#btnNext");
+        this.#potionsDom = document.querySelector("#potions");
+        this.#equipementDom = document.querySelector("#equipement");
         this.setButtonsActions();
         this.hero = hero;
         this.gameMonsters = gameMonsters;
@@ -45,12 +51,35 @@ export class GameInterface {
         });
     }
 
+    monsterDeathReward(){
+        let givenReward = this.gameMonsters[this.stepNum].leaveReward();
+        if (givenReward != null) {
+            let newImageDom = document.createElement('img');
+            newImageDom.classList.add(givenReward);
+            newImageDom.src = GameInterface.linkToImgEquipements + givenReward + ".png";
+
+            switch(givenReward){
+                case 'potions':
+                    
+                    this.potionsDom.appendChild(newImageDom);
+                    break;
+                case 'weapon':
+                    this.equipementDom.appendChild(newImageDom);
+                    break;
+                default:
+                    console.log("Unknown given reward");
+            }
+            
+            this.hero.getStuff(givenReward);
+        }
+    }
+
     // Action du bouton Attaquer
     attackButtonAction(){
         // Si le monstre actuel est mort
         if (this.hero.attack(this.gameMonsters[this.stepNum])) {
+            this.monsterDeathReward();
             this.gameMonsters[this.stepNum].removeFromDom();
-            // TODO: Récupérer le loot de l'ancien monstre!
 
             // Nous cachons le bouton pour attaquer l'ancien monstre
             this.showAttackButton(false);
@@ -119,13 +148,10 @@ export class GameInterface {
     }
 
     showPotionButton(tmpBool){
-        if (tmpBool) {
-            if (this.hero.bagPotions > 0){
-                btnUtiliser.style.display = "block";
-            } else {
-                console.log("Vous n'avez pas de potions, le bouton Utiliser reste invisible!");
-            }
+        if (tmpBool && this.hero.bagPotions > 0) {
+            btnUtiliser.style.display = "block";
         } else {
+            console.log("Vous n'avez pas de potions, le bouton Utiliser reste invisible!");
             btnUtiliser.style.display = "none";
         }
     }
@@ -196,6 +222,22 @@ export class GameInterface {
 
     set btnNext(tmp) {
         this.#btnNext = tmp;
+    }
+
+    get equipementDom() {
+        return this.#equipementDom;
+    }
+
+    set equipementDom(tmp) {
+        this.#equipementDom = tmp;
+    }
+
+    get potionsDom() {
+        return this.#potionsDom;
+    }
+
+    set potionsDom(tmp) {
+        this.#potionsDom = tmp;
     }
 
     get hero() {
