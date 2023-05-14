@@ -37,7 +37,6 @@ export class Spider extends Monster {
             gift = 'potions'
         }
 
-        // console.log(gift)
         return gift;
     }
 }
