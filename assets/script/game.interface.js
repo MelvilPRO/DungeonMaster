@@ -72,8 +72,6 @@ export class GameInterface {
         this.nextStep();
         // Nous affichons le bouton pour attaquer le nouveau monstre
         this.showAttackButton(true);
-        // Nous affichons le bouton pour utiliser une potion (si bagWeapons)
-        this.showPotionButton(true);
         // Nous cachons le bouton, il y a un nouveau monstre..
         this.showNextButton(false);
     }
