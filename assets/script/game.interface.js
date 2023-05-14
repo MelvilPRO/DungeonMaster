@@ -18,7 +18,7 @@ export class GameInterface {
     constructor(stepNum, hero, gameMonsters){
         this.stepNum = stepNum;
         this.stepDom = document.querySelector("#step");
-        this.#stepDom.innerHTML = "Etage: " + this.stepNum;
+        this.#stepDom.innerHTML = "Etage: " + (this.stepNum + 1);
         this.loseDom = document.querySelector("#lose");
         this.btnAttack = document.querySelector("#btnAttack");
         this.#btnUtiliser = document.querySelector("#btnUtiliser");
@@ -93,7 +93,7 @@ export class GameInterface {
             this.stepNum += 1;
             this.addNextMonsterDom();
             this.switchBackgroundImg(this.stepNum);
-            this.#stepDom.innerHTML = "Etage: " + this.stepNum;
+            this.#stepDom.innerHTML = "Etage: " + (this.stepNum + 1);
         } else {
             console.log("Vous avez atteint le niveau maximal, fin de la partie!");
         }
