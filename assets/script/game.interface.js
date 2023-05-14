@@ -50,6 +50,12 @@ export class GameInterface {
         // Si le monstre actuel est mort
         if (this.hero.attack(this.gameMonsters[this.stepNum])) {
             this.gameMonsters[this.stepNum].removeFromDom();
+            // TODO: Récupérer le loot de l'ancien monstre!
+
+            // Nous cachons le bouton pour attaquer l'ancien monstre
+            this.showAttackButton(false);
+            // Nous affichons le bouton pour utiliser une potion (si bagWeapons)
+            this.showPotionButton(true);
             // Nous affichons le bouton pour aller au niveau suivant
             this.showNextButton(true);
         }
@@ -58,13 +64,17 @@ export class GameInterface {
     // Action du bouton Utiliser
     potionActionButton(){
         this.hero.usePotions();
+        this.showPotionButton(true);
     }
 
     // Action du bouton Suivant
     nextButtonAction(){
         this.nextStep();
-        // Nous cachons le bouton
-        // Il y a un nouveau monstre..
+        // Nous affichons le bouton pour attaquer le nouveau monstre
+        this.showAttackButton(true);
+        // Nous affichons le bouton pour utiliser une potion (si bagWeapons)
+        this.showPotionButton(true);
+        // Nous cachons le bouton, il y a un nouveau monstre..
         this.showNextButton(false);
     }
 
@@ -112,7 +122,11 @@ export class GameInterface {
 
     showPotionButton(tmpBool){
         if (tmpBool) {
-            btnUtiliser.style.display = "block";
+            if (this.hero.bagPotions > 0){
+                btnUtiliser.style.display = "block";
+            } else {
+                console.log("Vous n'avez pas de potions, le bouton Utiliser reste invisible!");
+            }
         } else {
             btnUtiliser.style.display = "none";
         }
