@@ -8,6 +8,7 @@ export class GameInterface {
     static EquipementsPath = 'assets/img/';
     static MaxStepNum = 10;
 
+    #winDom;
     #loseDom;
     #btnAttack;
     #btnUtiliser;
@@ -28,6 +29,7 @@ export class GameInterface {
         this.stepNum = stepNum;
         this.stepDom = document.querySelector("#step");
         this.stepDom.innerHTML = "Etage: " + (this.stepNum + 1);
+        this.winDom = document.querySelector("#win");
         this.loseDom = document.querySelector("#lose");
         this.btnAttack = document.querySelector("#btnAttack");
         this.btnUtiliser = document.querySelector("#btnUtiliser");
@@ -127,8 +129,6 @@ export class GameInterface {
         this.showAttackButton(true);
         // Nous cachons le bouton, il y a un nouveau monstre..
         this.showNextButton(false);
-        // Nous rajoutons les points de vie de ce nouveau monstre
-        this.pvMonsterDivDom.style.height = this.gameMonsters[this.stepNum].life + "%";
     }
 
     addNextMonsterDom() {
@@ -142,13 +142,15 @@ export class GameInterface {
 
     // Méthode utilisée lors d'un passage de niveau
     nextStep() {
-        if (this.stepNum < GameInterface.MaxStepNum){
+        if (this.stepNum < GameInterface.MaxStepNum - 1){
             this.stepNum += 1;
             this.addNextMonsterDom();
             this.switchBackgroundImg(this.stepNum);
             this.stepDom.innerHTML = "Etage: " + (this.stepNum + 1);
+            this.pvMonsterDivDom.style.height = this.gameMonsters[this.stepNum].life + "%";
         } else {
             console.log("Vous avez atteint le niveau maximal, fin de la partie!");
+            this.showYouWin();
         }
     }
 
@@ -156,6 +158,11 @@ export class GameInterface {
     showYouLose() {
         this.loseDom.style.display = "block";
         this.loseDom.style.textAlign = "center";
+    }
+    // Méthode utilisée lorsque vous avez perdu
+    showYouWin() {
+        this.winDom.style.display = "block";
+        this.winDom.style.textAlign = "center";
     }
 
     // Méthode utilisée pour afficher ou cacher les différents boutons disponibles
@@ -209,6 +216,14 @@ export class GameInterface {
 
     set stepNum(tmp) {
         this.#stepNum = tmp;
+    }
+
+    get winDom() {
+        return this.#winDom;
+    }
+
+    set winDom(tmp) {
+        this.#winDom = tmp;
     }
 
     get loseDom() {

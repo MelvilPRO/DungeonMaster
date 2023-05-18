@@ -173,3 +173,32 @@ body {
   bottom: 20px;
   font-size: 40px;
 }
+
+#win {
+  box-sizing: border-box;
+  text-transform: capitalize;
+  font-family: Blood;
+  color: rgb(0, 220, 255);
+  font-size: 100px;
+  position: absolute;
+  z-index:9999;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.719);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 270px;
+  display: none;
+}
+
+#win a {
+  font-family: 'roboto';
+  text-decoration: none;
+  font-style: italic;
+  color: white;
+  display: block;
+  position: absolute;
+  bottom: 20px;
+  font-size: 40px;
+}

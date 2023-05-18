@@ -17,22 +17,9 @@ export class Boss extends Monster {
         super('Boss', atk, def, life, sprite, tgt);
     }
 
-    addToDom(numberBoss) {
+    addToDom() {
         this._dom = document.createElement('img');
-        switch (numberBoss) {
-            case 0:
-                this._dom.id = 'boss1';
-                break;
-            case 1:
-                this._dom.id = 'boss2';
-                break;
-            case 2:
-                this._dom.id = 'boss3';
-                break;
-            default:
-                console.log('Unknown img Boss');
-        }
-
+        this._dom.classList.add('boss');
         this._dom.src = this.image;
         this.target.appendChild(this._dom);
     }
