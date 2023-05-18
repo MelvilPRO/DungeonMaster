@@ -19,6 +19,8 @@ export class GameInterface {
     #pvHeroDom;
     #pvMonsterDom;
 
+    #potionsImageList;
+
     #hero;
     #gameMonsters;
 
@@ -35,6 +37,7 @@ export class GameInterface {
         this.equipementDom = document.querySelector("#equipement");
         this.pvHeroDivDom = document.querySelector("#pvHeroDiv");
         this.pvMonsterDivDom = document.querySelector("#pvMonsterDiv");
+        this.potionsImageList = [];
         this.setButtonsActions();
         this.hero = hero;
         this.gameMonsters = gameMonsters;
@@ -66,6 +69,7 @@ export class GameInterface {
             switch(givenReward){
                 case 'potions':
                     this.potionsDom.appendChild(newImageDom);
+                    this.potionsImageList.push(newImageDom);
                     break;
                 case 'weapon':
                     this.equipementDom.appendChild(newImageDom);
@@ -108,6 +112,12 @@ export class GameInterface {
         this.hero.usePotions();
         this.pvHeroDivDom.style.height = this.hero.life + "%";
         this.showPotionButton(false);
+
+        // On retire la première image de potion sur le dom
+        if (this.potionsImageList.length){
+            this.potionsDom.removeChild(this.potionsImageList[0]);
+            this.potionsImageList.pop();
+        }
     }
 
     // Action du bouton Suivant
@@ -271,6 +281,14 @@ export class GameInterface {
 
     set pvMonsterDom(tmp) {
         this.#pvMonsterDom = tmp;
+    }
+
+    get potionsImageList() {
+        return this.#potionsImageList;
+    }
+
+    set potionsImageList(tmp) {
+        this.#potionsImageList = tmp;
     }
 
     get hero() {
