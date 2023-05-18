@@ -16,6 +16,8 @@ export class GameInterface {
     #bagDom;
     #equipementDom;
     #potionsDom;
+    #pvHeroDom;
+    #pvMonsterDom;
 
     #hero;
     #gameMonsters;
@@ -31,6 +33,8 @@ export class GameInterface {
         this.bagDom = document.querySelector("#bag");
         this.potionsDom = document.querySelector("#potions");
         this.equipementDom = document.querySelector("#equipement");
+        this.pvHeroDivDom = document.querySelector("#pvHeroDiv");
+        this.pvMonsterDivDom = document.querySelector("#pvMonsterDiv");
         this.setButtonsActions();
         this.hero = hero;
         this.gameMonsters = gameMonsters;
@@ -78,6 +82,7 @@ export class GameInterface {
     attackButtonAction(){
         // Si le monstre actuel est mort
         if (this.hero.attack(this.gameMonsters[this.stepNum])) {
+            this.pvMonsterDivDom.style.height = "0%";
             this.monsterDeathReward();
             this.gameMonsters[this.stepNum].removeFromDom();
 
@@ -87,13 +92,22 @@ export class GameInterface {
             this.showPotionButton(true);
             // Nous affichons le bouton pour aller au niveau suivant
             this.showNextButton(true);
+        } else {
+            this.pvMonsterDivDom.style.height = this.gameMonsters[this.stepNum].life + "%";
+        }
+
+        this.gameMonsters[this.stepNum].attack(this.hero);
+        this.pvHeroDivDom.style.height = this.hero.life + "%";
+        if (this.hero.life <= 0){
+            this.showYouLose();
         }
     }
 
     // Action du bouton Utiliser
     potionActionButton(){
         this.hero.usePotions();
-        this.showPotionButton(true);
+        this.pvHeroDivDom.style.height = this.hero.life + "%";
+        this.showPotionButton(false);
     }
 
     // Action du bouton Suivant
@@ -103,6 +117,8 @@ export class GameInterface {
         this.showAttackButton(true);
         // Nous cachons le bouton, il y a un nouveau monstre..
         this.showNextButton(false);
+        // Nous rajoutons les points de vie de ce nouveau monstre
+        this.pvMonsterDivDom.style.height = this.gameMonsters[this.stepNum].life + "%";
     }
 
     addNextMonsterDom() {
@@ -239,6 +255,22 @@ export class GameInterface {
 
     set potionsDom(tmp) {
         this.#potionsDom = tmp;
+    }
+
+    get pvHeroDom() {
+        return this.#pvHeroDom;
+    }
+
+    set pvHeroDom(tmp) {
+        this.#pvHeroDom = tmp;
+    }
+
+    get pvMonsterDom() {
+        return this.#pvMonsterDom;
+    }
+
+    set pvMonsterDom(tmp) {
+        this.#pvMonsterDom = tmp;
     }
 
     get hero() {

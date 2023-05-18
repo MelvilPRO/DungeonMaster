@@ -25,10 +25,10 @@ export class Game {
             let monsterCurr;
             switch (monsterType){
                 case Spider.MonsterType:
-                    monsterCurr = new Spider(2, 3, 100, this.backgroundDom);
+                    monsterCurr = new Spider(Math.floor(5 * 1), 5, 100, this.backgroundDom);
                     break;
                 case Skeleton.MonsterType:
-                    monsterCurr = new Skeleton(3, 4, 100, this.backgroundDom);
+                    monsterCurr = new Skeleton(Math.floor(7 * 1), 7, 100, this.backgroundDom);
                     break;
                 case Boss.MonsterType:
                     console.log("Le boss ne peut être placé qu'à la fin du tableau!");
@@ -40,7 +40,7 @@ export class Game {
             gameMonsters.push(monsterCurr);
         }
     
-        gameMonsters.push(new Boss(4, 5, 100, this.backgroundDom));
+        gameMonsters.push(new Boss(Math.floor(10 * 1), 10, 100, this.backgroundDom));
         return gameMonsters;
     }
 
